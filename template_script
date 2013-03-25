@@ -1,0 +1,58 @@
+#!/bin/bash
+#### Comments ####
+# Based on simple-bash-template by josecriane
+# See on https://github.com/josecriane/simple-bash-template
+
+#### Functions ####
+function generate_help {
+  echo -e "Usage: $NAME [OPTIONS] [COMMAND OPTIONS]"
+  echo -e "       $NAME -h, --help"
+  echo -e "       $NAME -V, --version" 
+  echo -e ""
+  echo -e " -h, --help         Gets the help."
+  echo -e " -v, --version      display version information"
+  echo -e ""
+}
+
+function get_version {
+  echo -e "$NAME by josecriane 0.01 beta \n"
+  echo -e "$NAME comes with ABSOLUTY NO WARRANTY."
+  echo -e "This is a free template to create and learn bash scripting,"
+  echo -e "you are welcome to redistribute it under the terms of the GNU General Public License"
+  echo -e "For more information about these matters, see http://www.gnu.org/licenses/gpl.txt"
+}
+
+function get_name {
+  local IFS="/"
+  for name in $0
+    do
+      NAME=$name
+    done
+}
+
+#### Initial ####
+get_name
+
+#### Main ####
+
+if [ $# -gt 0 ]
+then
+  while (( $# ))
+    do
+      case $1 in
+        -h | --help )
+          generate_help
+          ;;
+        
+        -V | --version )
+          get_version
+          ;;
+        * )
+          echo -e "$NAME: invalid option '$1' \nTry '$NAME -h' for more information"
+          ;;
+      esac
+      shift
+    done
+else
+  generate_help
+fi 
