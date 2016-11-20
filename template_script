@@ -8,6 +8,7 @@ function generate_help {
   echo -e "Usage: $NAME [OPTIONS] [COMMAND OPTIONS]"
   echo -e "       $NAME -h, --help"
   echo -e "       $NAME -V, --version" 
+  echo -e "       $NAME -p, --params [OPTIONS]" 
   echo -e ""
   echo -e " -h, --help         Gets the help."
   echo -e " -v, --version      display version information"
@@ -15,7 +16,7 @@ function generate_help {
 }
 
 function get_version {
-  echo -e "$NAME by josecriane 0.01 beta \n"
+  echo -e "$NAME by josecriane 0.02 beta \n"
   echo -e "$NAME comes with ABSOLUTY NO WARRANTY."
   echo -e "This is a free template to create and learn bash scripting,"
   echo -e "you are welcome to redistribute it under the terms of the GNU General Public License"
@@ -28,6 +29,10 @@ function get_name {
     do
       NAME=$name
     done
+}
+
+function pass_params {
+  echo $1
 }
 
 #### Initial ####
@@ -43,7 +48,15 @@ then
         -h | --help )
           generate_help
           ;;
-        
+        -p | --params )
+          if [ -z "$2" ]
+          then
+            echo -e "Try '$NAME -p, --params [OPTIONS]' for more information"
+          else
+            pass_params $2
+            break
+          fi
+          ;;
         -V | --version )
           get_version
           ;;
